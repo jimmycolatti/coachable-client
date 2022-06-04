@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom"
 import { useContext } from "react"
+
+//context
 import UserContext from "../contexts/UserContext"
 
 const styles = {
@@ -13,17 +15,36 @@ const activeStyle = ({ isActive }) => {
 }
 
 const NavBar = () => {
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
+
+  const logoutHandler = (e) => {
+    setUser(() => null)
+  }
 
   return (
     <div style={styles}>
       <NavLink to="/" style={activeStyle}>
         Home
       </NavLink>
-      <NavLink to="login" style={activeStyle}>
-        Login
-      </NavLink>
+
       {/* If we have an authenticated user, then they are allowed to see the below links */}
+      {user ? (
+        <>
+          <NavLink to="profile" style={activeStyle}>
+            Profile
+          </NavLink>
+
+          <NavLink onClick={logoutHandler} to="login" style={activeStyle}>
+            Logout
+          </NavLink>
+        </>
+      ) : (
+        <>
+          <NavLink to="login" style={activeStyle}>
+            Login
+          </NavLink>
+        </>
+      )}
     </div>
   )
 }

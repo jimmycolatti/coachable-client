@@ -8,7 +8,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>{user ? `Welcome ${user.username}!!!` : "Coachable"}</h1>
+      <h1>{user ? `Welcome ${user.email}!!!` : "Coachable"}</h1>
     </div>
   )
 }

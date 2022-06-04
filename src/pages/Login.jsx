@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 
 const Login = () => {
   const defaultFormData = {
-    username: "",
+    email: "",
     password: "",
   }
 
@@ -43,7 +43,7 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault()
     submitFormData()
-    // navigateTo("/")
+    navigateTo("/")
   }
 
   const logoutHandler = (e) => {
@@ -62,12 +62,12 @@ const Login = () => {
       <button onClick={() => setLoginState("register")}>Register</button>
 
       <form onSubmit={submitHandler}>
-        <label>Username: </label>
+        <label>Email: </label>
         <input
           type="text"
-          name="username"
+          name="email"
           onChange={changeHandler}
-          value={formData.username}
+          value={formData.email}
         />
         <label>Password: </label>
         <input
