@@ -69,6 +69,7 @@ const Login = () => {
           onChange={changeHandler}
           value={formData.email}
         />
+        <br />
         <label>Password: </label>
         <input
           type="text"

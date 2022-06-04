@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { useContext } from "react"
+import { useState, useContext } from "react"
 
 //context
 import UserContext from "../contexts/UserContext"
@@ -30,7 +30,7 @@ const NavBar = () => {
       {/* If we have an authenticated user, then they are allowed to see the below links */}
       {user ? (
         <>
-          <NavLink to="profile" style={activeStyle}>
+          <NavLink to={`profile/${user._id}`} style={activeStyle}>
             Profile
           </NavLink>
 
