@@ -7,7 +7,7 @@ export const authAxios = axios.create({})
 //This function intercept the axios request and add "Authorization" header with the token
 authAxios.interceptors.request.use((config) => {
   const token = jwtToken()
-  console.log(token)
+  // console.log(token)
   if (token) config.headers["Authorization"] = `Bearer ${token.token}`
   return config
 })

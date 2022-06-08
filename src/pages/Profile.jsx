@@ -16,7 +16,6 @@ const Profile = () => {
   const defaultUserFormData = {
     firstName: "",
     lastName: "",
-    preferredName: "",
     email: "",
   }
   const [userFormData, setUserFormData] = useState(defaultUserFormData)
@@ -38,7 +37,7 @@ const Profile = () => {
       `http://localhost:5005/profile/${userID}`,
       userFormData
     )
-    console.log(data)
+    // console.log(data)
     setUser(() => data)
     setUserFormData(() => data)
     setEditToggler(() => !editToggler)
@@ -77,7 +76,6 @@ const Profile = () => {
         <div>
           <p>First Name: {userFormData.firstName}</p>
           <p>Last Name: {userFormData.lastName}</p>
-          <p>Preferred Name: {userFormData.preferredName}</p>
           <p>Email: {userFormData.email}</p>
           <button onClick={editHandler}>Edit</button>
         </div>

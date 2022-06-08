@@ -1,4 +1,4 @@
-const UserForm = ({ userFormData, submitHandler, changeHandler }) => {
+const CoacheeForm = ({ coacheeFormData, submitHandler, changeHandler }) => {
   return (
     <div>
       <form onSubmit={submitHandler}>
@@ -6,7 +6,7 @@ const UserForm = ({ userFormData, submitHandler, changeHandler }) => {
         <input
           type="text"
           name="firstName"
-          value={userFormData.firstName}
+          value={coacheeFormData.firstName}
           onChange={changeHandler}
         />
         <br />
@@ -14,7 +14,7 @@ const UserForm = ({ userFormData, submitHandler, changeHandler }) => {
         <input
           type="text"
           name="lastName"
-          value={userFormData.lastName}
+          value={coacheeFormData.lastName}
           onChange={changeHandler}
         />
         <br />
@@ -22,7 +22,7 @@ const UserForm = ({ userFormData, submitHandler, changeHandler }) => {
         <input
           type="text"
           name="email"
-          value={userFormData.email}
+          value={coacheeFormData.email}
           onChange={changeHandler}
         />
         <br />
@@ -32,4 +32,4 @@ const UserForm = ({ userFormData, submitHandler, changeHandler }) => {
   )
 }
 
-export default UserForm
+export default CoacheeForm

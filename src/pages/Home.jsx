@@ -6,7 +6,7 @@ const Home = () => {
   //Get the user value from the UserContext
   const { user } = useContext(UserContext)
 
-  console.log(user)
+  // console.log(user)
 
   return (
     <div>

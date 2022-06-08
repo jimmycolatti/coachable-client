@@ -8,6 +8,7 @@ import NavBar from "./components/NavBar"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile"
+import Team from "./pages/Team"
 
 //providers
 import { UserProvider } from "./contexts/UserContext"
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
 
             <Route path="/profile/:userID" element={<Profile />} />
+            <Route path="/team/:userID" element={<Team />} />
           </Routes>
         </div>
       </UserProvider>

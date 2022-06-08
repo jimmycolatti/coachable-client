@@ -34,6 +34,10 @@ const NavBar = () => {
             Profile
           </NavLink>
 
+          <NavLink to={`team/${user._id}`} style={activeStyle}>
+            Team
+          </NavLink>
+
           <NavLink onClick={logoutHandler} to="login" style={activeStyle}>
             Logout
           </NavLink>
