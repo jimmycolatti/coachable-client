@@ -25,6 +25,7 @@ function App() {
 
             <Route path="/profile/:userID" element={<Profile />} />
             <Route path="/team/:userID" element={<Team />} />
+            
           </Routes>
         </div>
       </UserProvider>

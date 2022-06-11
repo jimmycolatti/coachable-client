@@ -28,6 +28,7 @@ const Team = () => {
   // get coachees from the database
   const getCoachees = async () => {
     const { data } = await authAxios.get(`http://localhost:5005/team/${userID}`)
+    console.log(data)
     setTeam(() => data)
   }
 
@@ -37,6 +38,8 @@ const Team = () => {
       `http://localhost:5005/team/${userID}`,
       coacheeFormData
     )
+    console.log(data)
+    console.log(team)
     addHandler()
     setTeam(() => [...team, data])
   }
