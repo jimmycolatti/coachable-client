@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Link, NavLink, useNavigate, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 
 //components
@@ -9,7 +9,7 @@ import CoacheeForm from "../components/CoacheeForm"
 import UserContext from "../contexts/UserContext"
 
 const Team = () => {
-  const { user, setUser } = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const [team, setTeam] = useState([])
   const [addToggler, setAddToggler] = useState(false)
 
@@ -20,7 +20,6 @@ const Team = () => {
   }
 
   const [coacheeFormData, setCoacheeFormData] = useState(defaultCoacheeFormData)
-  const navigateTo = useNavigate()
 
   // get id from url
   const { userID } = useParams()
@@ -28,7 +27,7 @@ const Team = () => {
   // get coachees from the database
   const getCoachees = async () => {
     const { data } = await authAxios.get(`http://localhost:5005/team/${userID}`)
-    console.log(data)
+    // console.log(data)
     setTeam(() => data)
   }
 
@@ -38,8 +37,7 @@ const Team = () => {
       `http://localhost:5005/team/${userID}`,
       coacheeFormData
     )
-    console.log(data)
-    console.log(team)
+
     addHandler()
     setTeam(() => [...team, data])
   }
@@ -52,6 +50,7 @@ const Team = () => {
     e.preventDefault()
     try {
       addCoachee()
+      setCoacheeFormData(() => defaultCoacheeFormData)
     } catch (error) {
       console.error(error)
     }
@@ -79,7 +78,7 @@ const Team = () => {
             return (
               <div key={coachee._id}>
                 <p>
-                  <Link to={coachee._id}>
+                  <Link to={`coachee/${coachee._id}`}>
                     {coachee.firstName} {coachee.lastName}
                   </Link>
                 </p>

@@ -9,6 +9,7 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import Team from "./pages/Team"
+import CoacheeProfile from "./pages/CoacheeProfile"
 
 //providers
 import { UserProvider } from "./contexts/UserContext"
@@ -25,7 +26,10 @@ function App() {
 
             <Route path="/profile/:userID" element={<Profile />} />
             <Route path="/team/:userID" element={<Team />} />
-            
+            <Route
+              path="/team/:userID/coachee/:coacheeID"
+              element={<CoacheeProfile />}
+            />
           </Routes>
         </div>
       </UserProvider>
