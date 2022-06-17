@@ -1,14 +1,10 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 //components
 import CoacheeForm from "../components/CoacheeForm"
-//contexts
-import UserContext from "../contexts/UserContext"
 
 const CoacheeProfile = () => {
-  const { user } = useContext(UserContext)
-
   const defaultCoacheeFormData = {
     firstName: "",
     lastName: "",

@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
-import axios from "axios"
 
 //components
 import UserForm from "../components/UserForm"

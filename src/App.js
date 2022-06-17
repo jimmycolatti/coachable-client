@@ -10,6 +10,7 @@ import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import Team from "./pages/Team"
 import CoacheeProfile from "./pages/CoacheeProfile"
+import Sessions from "./pages/Sessions"
 
 //providers
 import { UserProvider } from "./contexts/UserContext"
@@ -26,6 +27,7 @@ function App() {
 
             <Route path="/profile/:userID" element={<Profile />} />
             <Route path="/team/:userID" element={<Team />} />
+            <Route path="/sessions/:userID" element={<Sessions />} />
             <Route
               path="/team/:userID/coachee/:coacheeID"
               element={<CoacheeProfile />}

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { useState, useContext } from "react"
+import { useContext } from "react"
 
 //context
 import UserContext from "../contexts/UserContext"
@@ -36,6 +36,10 @@ const NavBar = () => {
 
           <NavLink to={`team/${user._id}`} style={activeStyle}>
             Team
+          </NavLink>
+
+          <NavLink to={`sessions/${user._id}`} style={activeStyle}>
+            Sessions
           </NavLink>
 
           <NavLink onClick={logoutHandler} to="login" style={activeStyle}>
