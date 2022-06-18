@@ -4,6 +4,7 @@ const SessionForm = ({
   changeHandler,
   dateAdapter,
   team,
+  checkHandler,
 }) => {
   return (
     <div>
@@ -18,8 +19,12 @@ const SessionForm = ({
         <br />
         <label>Coachee: </label>
         <select>
-          {team.forEach((coachee) => {
-            return <option>{coachee.firstName}</option>
+          {team.map((coachee) => {
+            return (
+              <option key={coachee._id} value={coachee._id}>
+                {coachee.firstName} {coachee.lastName}
+              </option>
+            )
           })}
         </select>
         <br />
@@ -35,7 +40,7 @@ const SessionForm = ({
           type="checkbox"
           name="completed"
           value={sessionFormData.completed}
-          onChange={changeHandler}
+          onChange={checkHandler}
         />
         <br />
         <button type="submit">Submit</button>

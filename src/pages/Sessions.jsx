@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, useCallback } from "react"
 import { Link, useParams } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
@@ -13,8 +13,10 @@ import UserContext from "../contexts/UserContext"
 const Sessions = () => {
   const { user } = useContext(UserContext)
   const [team, setTeam] = useState([])
+  console.log(team)
   const [sessions, setSessions] = useState([])
   const [addToggler, setAddToggler] = useState(false)
+  //   const [completed, setCompleted] = useState(false)
 
   const defaultSessionFormData = {
     date: new Date(),
@@ -23,22 +25,20 @@ const Sessions = () => {
     completed: false,
   }
 
-  const [sessionFormData, setSessionsFormData] = useState(
-    defaultSessionFormData
-  )
+  const [sessionFormData, setSessionFormData] = useState(defaultSessionFormData)
 
   // get id from url
   const { userID } = useParams()
 
   // get sessions and coachees from the database
-  const getSessions = async () => {
+  const getSessions = useCallback(async () => {
     const { data } = await authAxios.get(
       `http://localhost:5005/sessions/${userID}`
     )
-
+    console.log(data)
     setSessions(() => data.sessions)
     setTeam(() => data.team)
-  }
+  }, [userID])
 
   //add a new session to the database
   const addSession = async () => {
@@ -50,14 +50,24 @@ const Sessions = () => {
   }
 
   const changeHandler = (e) => {
-    setSessionsFormData({ ...sessionFormData, [e.target.name]: e.target.value })
+    setSessionFormData({ ...sessionFormData, [e.target.name]: e.target.value })
+  }
+
+  const checkHandler = (e) => {
+    console.log("The checkbox was toggled")
+
+    setSessionFormData({
+      ...sessionFormData,
+      [e.target.name]: e.target.checked,
+    })
   }
 
   const submitHandler = (e) => {
     e.preventDefault()
+
     try {
       addSession()
-      setSessionsFormData(() => defaultSessionFormData)
+      setSessionFormData(() => defaultSessionFormData)
     } catch (error) {
       console.error(error)
     }
@@ -65,7 +75,7 @@ const Sessions = () => {
 
   const addHandler = (e) => {
     setAddToggler(() => !addToggler)
-    setSessionsFormData(() => defaultSessionFormData)
+    setSessionFormData(() => defaultSessionFormData)
   }
 
   useEffect(() => {
@@ -74,7 +84,7 @@ const Sessions = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [])
+  }, [getSessions])
 
   return (
     <div>
@@ -82,9 +92,6 @@ const Sessions = () => {
 
       {user && !addToggler && (
         <div>
-          {team.forEach((coachee) => {
-            return <p> {coachee.firstName} </p>
-          })}
           <button onClick={addHandler}>Create a Session</button>
         </div>
       )}
@@ -95,6 +102,7 @@ const Sessions = () => {
             sessionFormData={sessionFormData}
             submitHandler={submitHandler}
             changeHandler={changeHandler}
+            checkHandler={checkHandler}
             dateAdapter={AdapterDateFns}
             team={team}
           />
