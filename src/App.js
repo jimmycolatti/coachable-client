@@ -11,6 +11,7 @@ import Profile from "./pages/Profile"
 import Team from "./pages/Team"
 import CoacheeProfile from "./pages/CoacheeProfile"
 import Sessions from "./pages/Sessions"
+import MeetingNotes from "./pages/MeetingNotes"
 
 //providers
 import { UserProvider } from "./contexts/UserContext"
@@ -28,6 +29,10 @@ function App() {
             <Route path="/profile/:userID" element={<Profile />} />
             <Route path="/team/:userID" element={<Team />} />
             <Route path="/sessions/:userID" element={<Sessions />} />
+            <Route
+              path="/sessions/:userID/meeting/:sessionID"
+              element={<MeetingNotes />}
+            />
             <Route
               path="/team/:userID/coachee/:coacheeID"
               element={<CoacheeProfile />}

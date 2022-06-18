@@ -51,7 +51,9 @@ const CoacheeProfile = () => {
   useEffect(() => {
     try {
       getCoacheeDetails()
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
   }, [])
 
   const changeHandler = (e) => {

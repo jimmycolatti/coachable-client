@@ -18,7 +18,14 @@ const SessionForm = ({
         />
         <br />
         <label>Coachee: </label>
-        <select>
+        <select
+          name="coachee"
+          value={sessionFormData.coachee}
+          onChange={changeHandler}
+        >
+          <option value="" disabled>
+            Select one--
+          </option>
           {team.map((coachee) => {
             return (
               <option key={coachee._id} value={coachee._id}>
@@ -28,10 +35,10 @@ const SessionForm = ({
           })}
         </select>
         <br />
-        <label>Notes: </label>
+        <label>Description: </label>
         <textarea
-          name="notes"
-          value={sessionFormData.notes}
+          name="description"
+          value={sessionFormData.description}
           onChange={changeHandler}
         />
         <br />
