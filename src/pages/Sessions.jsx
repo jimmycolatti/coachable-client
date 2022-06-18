@@ -44,6 +44,7 @@ const Sessions = () => {
       `http://localhost:5005/sessions/${userID}`,
       sessionFormData
     )
+    setSessions(() => [...sessions, data])
     addHandler()
   }
 
@@ -60,13 +61,12 @@ const Sessions = () => {
     })
   }
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
 
     try {
-      addSession()
+      await addSession()
       setSessionFormData(() => defaultSessionFormData)
-      navigateTo(`/sessions/${userID}`)
     } catch (error) {
       console.error(error)
     }

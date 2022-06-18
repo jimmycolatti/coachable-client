@@ -37,18 +37,21 @@ const MeetingNotes = () => {
     return dtFormat.format(date)
   }
 
-  console.log(meetingNotes)
-
   return (
-    <div>
-      <h1>Meeting Notes</h1>
-      <div key={meetingNotes._id}>
-        <p>Coachee: {meetingNotes.coachee[0].firstName}</p>
-        <p>Date: {dateTimeFormatter(meetingNotes.date)}</p>
-        <p>Complete: {meetingNotes.completed ? "Yes" : "No"}</p>
-        <p>Description: </p>
+    meetingNotes && (
+      <div>
+        <h1>Meeting Notes</h1>
+        <div key={meetingNotes._id}>
+          <p>
+            Coachee: {meetingNotes.coachee[0].firstName}{" "}
+            {meetingNotes.coachee[0].lastName}
+          </p>
+          <p>Date: {dateTimeFormatter(meetingNotes.date)}</p>
+          <p>Complete: {meetingNotes.completed ? "Yes" : "No"}</p>
+          <p>Description: {meetingNotes.description}</p>
+        </div>
       </div>
-    </div>
+    )
   )
 }
 
