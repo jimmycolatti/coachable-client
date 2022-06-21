@@ -44,7 +44,11 @@ const Sessions = () => {
       `http://localhost:5005/sessions/${userID}`,
       sessionFormData
     )
-    setSessions(() => [...sessions, data])
+    const sortedSessions = [...sessions, data].sort((a, b) => {
+      return new Date(a.date) - new Date(b.date)
+    })
+
+    setSessions(sortedSessions)
     addHandler()
   }
 

@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { useContext } from "react"
+import { signInWithGoogle, auth } from "../config/Fire"
 
 //context
 import UserContext from "../contexts/UserContext"
@@ -19,6 +20,7 @@ const NavBar = () => {
 
   const logoutHandler = (e) => {
     setUser(() => null)
+    auth.signOut()
   }
 
   return (
@@ -42,15 +44,17 @@ const NavBar = () => {
             Sessions
           </NavLink>
 
-          <NavLink onClick={logoutHandler} to="login" style={activeStyle}>
+          <NavLink onClick={logoutHandler} to="/" style={activeStyle}>
             Logout
           </NavLink>
         </>
       ) : (
         <>
-          <NavLink to="login" style={activeStyle}>
+          {/* <NavLink to="login" style={activeStyle}>
             Login
-          </NavLink>
+          </NavLink> */}
+
+          <button onClick={signInWithGoogle}>Log In With Google</button>
         </>
       )}
     </div>

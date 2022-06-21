@@ -42,6 +42,13 @@ const SessionForm = ({
           onChange={changeHandler}
         />
         <br />
+        <label>Notes: </label>
+        <textarea
+          name="notes"
+          value={sessionFormData.notes}
+          onChange={changeHandler}
+        />
+        <br />
         <label>Session complete: </label>
         <input
           type="checkbox"

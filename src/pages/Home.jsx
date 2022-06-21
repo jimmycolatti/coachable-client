@@ -12,6 +12,8 @@ const Home = () => {
     <div>
       <h1>
         {user ? `Welcome ${user.firstName || user.email}!!!` : "Coachable"}
+        <br />
+        {user && <img src={user.imgURL} alt={user.firsName + user.lastName} />}
       </h1>
     </div>
   )
