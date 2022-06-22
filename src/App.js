@@ -15,30 +15,33 @@ import MeetingNotes from "./pages/MeetingNotes"
 
 //providers
 import { UserProvider } from "./contexts/UserContext"
+import { ChakraProvider } from "@chakra-ui/react"
 
 function App() {
   return (
     <BrowserRouter>
       <UserProvider>
-        <div className="App">
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+        <ChakraProvider>
+          <div className="App">
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
 
-            <Route path="/profile/:userID" element={<Profile />} />
-            <Route path="/team/:userID" element={<Team />} />
-            <Route path="/sessions/:userID" element={<Sessions />} />
-            <Route
-              path="/sessions/:userID/meeting/:sessionID"
-              element={<MeetingNotes />}
-            />
-            <Route
-              path="/team/:userID/coachee/:coacheeID"
-              element={<CoacheeProfile />}
-            />
-          </Routes>
-        </div>
+              <Route path="/profile/:userID" element={<Profile />} />
+              <Route path="/team/:userID" element={<Team />} />
+              <Route path="/sessions/:userID" element={<Sessions />} />
+              <Route
+                path="/sessions/:userID/meeting/:sessionID"
+                element={<MeetingNotes />}
+              />
+              <Route
+                path="/team/:userID/coachee/:coacheeID"
+                element={<CoacheeProfile />}
+              />
+            </Routes>
+          </div>
+        </ChakraProvider>
       </UserProvider>
     </BrowserRouter>
   )

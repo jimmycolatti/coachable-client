@@ -8,11 +8,30 @@ import UserForm from "../components/UserForm"
 //contexts
 import UserContext from "../contexts/UserContext"
 
+//chakra UI
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  useColorModeValue,
+  Avatar,
+  AvatarBadge,
+  IconButton,
+  Center,
+  useToast,
+} from "@chakra-ui/react"
+import { SmallCloseIcon } from "@chakra-ui/icons"
+
 const Profile = () => {
   const { user, setUser } = useContext(UserContext)
   const [editToggler, setEditToggler] = useState(false)
 
   const defaultUserFormData = {
+    imgURL: "https://i.stack.imgur.com/l60Hf.png",
     firstName: "",
     lastName: "",
     email: "",
@@ -55,9 +74,11 @@ const Profile = () => {
     }
   }
 
-  const editHandler = (e) => {
-    setEditToggler(() => !editToggler)
-  }
+  // const editHandler = (e) => {
+  //   setEditToggler(() => !editToggler)
+  // }
+
+  const toast = useToast()
 
   useEffect(() => {
     try {
@@ -68,29 +89,142 @@ const Profile = () => {
   }, [])
 
   return (
-    <div>
-      <h1>Profile - User info</h1>
+    <Flex
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Stack
+        spacing={4}
+        w={"full"}
+        maxW={"md"}
+        bg={useColorModeValue("white", "gray.700")}
+        rounded={"xl"}
+        boxShadow={"lg"}
+        p={6}
+        my={12}
+      >
+        <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
+          User Profile Edit
+        </Heading>
 
-      {user && !editToggler && (
-        <div>
-          <p>First Name: {userFormData.firstName}</p>
-          <p>Last Name: {userFormData.lastName}</p>
-          <p>Email: {userFormData.email}</p>
-          <button onClick={editHandler}>Edit</button>
-        </div>
-      )}
+        <form onSubmit={submitHandler}>
+          <FormControl id="imgURL">
+            {/* <FormLabel>Profile Picture</FormLabel> */}
+            <Stack direction={["column", "row"]} spacing={6}>
+              <Center w="full">
+                <Avatar size="xl" src={userFormData.imgURL}>
+                  {/* <AvatarBadge
+                    as={IconButton}
+                    size="sm"
+                    rounded="full"
+                    top="-10px"
+                    colorScheme="red"
+                    aria-label="remove Image"
+                    icon={<SmallCloseIcon />}
+                  /> */}
+                </Avatar>
+              </Center>
 
-      {editToggler && (
-        <div>
-          <UserForm
-            userFormData={userFormData}
-            submitHandler={submitHandler}
-            changeHandler={changeHandler}
-          />
-          <button onClick={editHandler}>Cancel</button>
-        </div>
-      )}
-    </div>
+              {/* <Center w="full">
+                <Button w="full">Change Picture</Button>
+              </Center> */}
+            </Stack>
+          </FormControl>
+
+          <br />
+
+          <FormControl id="firstName" isRequired>
+            <FormLabel>First name</FormLabel>
+            <Input
+              type="text"
+              name="firstName"
+              value={userFormData.firstName}
+              _value={{ color: "gray.500" }}
+              onChange={changeHandler}
+            />
+          </FormControl>
+
+          <br />
+
+          <FormControl id="lastName" isRequired>
+            <FormLabel>Last name</FormLabel>
+            <Input
+              type="text"
+              name="lastName"
+              value={userFormData.lastName}
+              _value={{ color: "gray.500" }}
+              onChange={changeHandler}
+            />
+          </FormControl>
+
+          <br />
+
+          <FormControl id="email" isRequired>
+            <FormLabel>Email address</FormLabel>
+            <Input
+              type="text"
+              name="email"
+              value={userFormData.email}
+              _value={{ color: "gray.500" }}
+              onChange={changeHandler}
+            />
+          </FormControl>
+
+          <br />
+
+          <Stack spacing={6} direction={["column", "row"]}>
+            <Button
+              onClick={() => {
+                toast({
+                  title: "Changes complete",
+                  description: "We've updated your account for you.",
+                  status: "success",
+                  duration: "6000",
+                  isClosable: true,
+                })
+              }}
+              type="submit"
+              bg={"blue.400"}
+              color={"white"}
+              w="full"
+              _hover={{
+                bg: "blue.500",
+              }}
+            >
+              Submit
+            </Button>
+          </Stack>
+        </form>
+      </Stack>
+    </Flex>
+
+    // <div>
+
+    //   <h1>Profile - User info</h1>
+
+    //   {user && !editToggler && (
+    //     <div>
+    //       <img src={user.imgURL} alt={user.firsName + user.lastName} />
+    //       <p>First Name: {userFormData.firstName}</p>
+    //       <p>Last Name: {userFormData.lastName}</p>
+    //       <p>Email: {userFormData.email}</p>
+    //       <button onClick={editHandler}>Edit</button>
+    //     </div>
+    //   )}
+
+    //   {editToggler && (
+    //     <div>
+    //       <UserForm
+    //         userFormData={userFormData}
+    //         submitHandler={submitHandler}
+    //         changeHandler={changeHandler}
+    //       />
+    //       <button onClick={editHandler}>Cancel</button>
+    //     </div>
+    //   )}
+    // </div>
   )
 }
 
