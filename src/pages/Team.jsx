@@ -58,9 +58,13 @@ const Team = () => {
   // get coachees from the database
   const getCoachees = useCallback(async () => {
     const { data } = await authAxios.get(`${baseApiUrl()}/team/${userID}`)
-    // console.log(data)
+
+    const sortedCoachees = data.sort((a, b) => {
+      return a.firstName - b.firstName
+    })
+
     setIsLoadingCoachee(false)
-    setTeam(() => data)
+    setTeam(sortedCoachees)
   }, [userID])
 
   //add a new coachee to the database
@@ -69,17 +73,24 @@ const Team = () => {
       `${baseApiUrl()}/team/${userID}`,
       coacheeFormData
     )
-    setTeam(() => [...team, data])
+
+    const sortedCoachees = [...team, data].sort((a, b) => {
+      return a.firstName - b.firstName
+    })
+
+    setTeam(sortedCoachees)
   }
 
   const changeHandler = (e) => {
     setCoacheeFormData({ ...coacheeFormData, [e.target.name]: e.target.value })
   }
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
+
     try {
-      addCoachee()
+      await addCoachee()
+      await getCoachees()
       setCoacheeFormData(() => defaultCoacheeFormData)
       onClose()
       toast({
@@ -100,7 +111,7 @@ const Team = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [getCoachees, team])
+  }, [getCoachees])
 
   return (
     <div>
