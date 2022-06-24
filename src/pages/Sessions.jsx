@@ -108,6 +108,15 @@ const Sessions = () => {
     return dtFormat.format(date)
   }
 
+  const findCoacheeById = (coacheesIds) => {
+    const foundCoachees = team.filter((coachee) => {
+      return coacheesIds.includes(coachee._id)
+    })
+    return foundCoachees
+      .map(({ firstName, lastName }) => `${firstName} ${lastName}`)
+      .join(", ")
+  }
+
   return (
     <div>
       <h1>Coaching Sessions</h1>
@@ -121,14 +130,7 @@ const Sessions = () => {
               <div key={s._id}>
                 <p>Date: {dateFormatter(s.date)}</p>
                 <p>Time: {timeFormatter(s.date)}</p>
-                <p>
-                  Coachee:{" "}
-                  {team.map((coachee) => {
-                    if (s.coachee[0] === coachee._id) {
-                      return `${coachee.firstName} ${coachee.lastName}`
-                    }
-                  })}
-                </p>
+                <p>Coachee: {findCoacheeById(s.coachee)}</p>
                 <p>Description: {s.description}</p>
                 <p>Complete: {s.completed ? "Yes" : "No"}</p>
                 <Link to={`meeting/${s._id}`}>See Notes</Link>

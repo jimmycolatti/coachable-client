@@ -37,7 +37,7 @@ const MeetingNotes = () => {
 
   //delete session from the database
   const deleteSession = async () => {
-    const { data } = await authAxios.delete(
+    await authAxios.delete(
       `http://localhost:5005/sessions/${userID}/meeting/${sessionID}`
     )
     navigateTo(`/sessions/${userID}`)

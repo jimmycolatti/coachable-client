@@ -49,6 +49,7 @@ const Team = () => {
   }
 
   const [coacheeFormData, setCoacheeFormData] = useState(defaultCoacheeFormData)
+  const [isLoadingCoachee, setIsLoadingCoachee] = useState(true)
 
   // get id from url
   const { userID } = useParams()
@@ -57,6 +58,7 @@ const Team = () => {
   const getCoachees = useCallback(async () => {
     const { data } = await authAxios.get(`http://localhost:5005/team/${userID}`)
     // console.log(data)
+    setIsLoadingCoachee(false)
     setTeam(() => data)
   }, [userID])
 
@@ -130,14 +132,14 @@ const Team = () => {
           </SimpleGrid>
         </>
       ) : (
-        <>
+        !isLoadingCoachee && (
           <Center>
             <Image
               src={"https://i.gifer.com/yH.gif"}
               alt={"john-travolta-gif"}
             />
           </Center>
-        </>
+        )
       )}
 
       <Modal
