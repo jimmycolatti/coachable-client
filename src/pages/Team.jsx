@@ -100,7 +100,7 @@ const Team = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [getCoachees])
+  }, [getCoachees, team])
 
   return (
     <div>

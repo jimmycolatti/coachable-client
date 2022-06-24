@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useCallback } from "react"
 import { useParams } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 import { baseApiUrl } from "../config"
@@ -37,10 +37,10 @@ const Profile = () => {
   const { userID } = useParams()
 
   // get profile information from the database
-  const getUserInfo = async () => {
+  const getUserInfo = useCallback(async () => {
     const { data } = await authAxios.get(`${baseApiUrl()}/profile/${userID}`)
     setUserFormData(() => data)
-  }
+  }, [userID])
 
   //update user information in the database
   const updateUserInfo = async () => {
@@ -79,7 +79,7 @@ const Profile = () => {
     } catch (error) {
       console.error(error)
     }
-  })
+  }, [getUserInfo])
 
   return (
     <Flex
