@@ -2,9 +2,6 @@ import { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 
-//components
-import UserForm from "../components/UserForm"
-
 //contexts
 import UserContext from "../contexts/UserContext"
 
@@ -19,15 +16,12 @@ import {
   Stack,
   useColorModeValue,
   Avatar,
-  AvatarBadge,
-  IconButton,
   Center,
   useToast,
 } from "@chakra-ui/react"
-import { SmallCloseIcon } from "@chakra-ui/icons"
 
 const Profile = () => {
-  const { user, setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
   const [editToggler, setEditToggler] = useState(false)
 
   const defaultUserFormData = {
@@ -86,7 +80,7 @@ const Profile = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [])
+  })
 
   return (
     <Flex

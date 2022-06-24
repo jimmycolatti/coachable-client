@@ -69,8 +69,6 @@ const NavBar = () => {
 
               {user ? (
                 <>
-                  <NavLink to={`profile/${user._id}`}>Profile</NavLink>
-
                   <NavLink to={`team/${user._id}`}>Team</NavLink>
 
                   <NavLink to={`sessions/${user._id}`}>Sessions</NavLink>
@@ -111,6 +109,9 @@ const NavBar = () => {
                   {/* <img src={user.imgURL} alt="" /> */}
                 </MenuButton>
                 <MenuList>
+                  <NavLink to={`profile/${user._id}`}>
+                    <MenuItem>Profile</MenuItem>
+                  </NavLink>
                   <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                 </MenuList>
               </Menu>

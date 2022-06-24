@@ -42,7 +42,7 @@ const CoacheeProfile = () => {
 
   //delete coachee from the database
   const deleteCoachee = async () => {
-    const { data } = await authAxios.delete(
+    await authAxios.delete(
       `http://localhost:5005/team/${userID}/coachee/${coacheeID}`
     )
     navigateTo(`/team/${userID}`)
@@ -54,7 +54,7 @@ const CoacheeProfile = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [])
+  })
 
   const changeHandler = (e) => {
     setCoacheeFormData({ ...coacheeFormData, [e.target.name]: e.target.value })

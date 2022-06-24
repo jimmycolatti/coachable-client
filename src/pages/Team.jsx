@@ -14,6 +14,9 @@ import {
   useDisclosure,
   FormLabel,
   Input,
+  useToast,
+  Image,
+  Center,
 } from "@chakra-ui/react"
 
 //modal create coachee
@@ -36,6 +39,8 @@ const Team = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
+
+  const toast = useToast()
 
   const defaultCoacheeFormData = {
     firstName: "",
@@ -74,6 +79,13 @@ const Team = () => {
       addCoachee()
       setCoacheeFormData(() => defaultCoacheeFormData)
       onClose()
+      toast({
+        title: "Coachee added",
+        description: "We've added a new coachee to your team",
+        status: "success",
+        duration: "6000",
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
     }
@@ -85,7 +97,7 @@ const Team = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [])
+  }, [getCoachees])
 
   return (
     <div>
@@ -102,20 +114,30 @@ const Team = () => {
           >
             Add a Coachee
           </Button>
-
-          <br />
-          <>
-            <SimpleGrid columns={3} spacing={"10px"}>
-              {team.map((coachee) => {
-                return (
-                  <div key={coachee._id}>
-                    <CoacheeCard coachee={coachee} />
-                  </div>
-                )
-              })}
-            </SimpleGrid>
-          </>
         </div>
+      )}
+      <br />
+      {user && team.length > 0 ? (
+        <>
+          <SimpleGrid columns={3} spacing={"10px"}>
+            {team.map((coachee) => {
+              return (
+                <div key={coachee._id}>
+                  <CoacheeCard coachee={coachee} />
+                </div>
+              )
+            })}
+          </SimpleGrid>
+        </>
+      ) : (
+        <>
+          <Center>
+            <Image
+              src={"https://i.gifer.com/yH.gif"}
+              alt={"john-travolta-gif"}
+            />
+          </Center>
+        </>
       )}
 
       <Modal
