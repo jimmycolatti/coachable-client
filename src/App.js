@@ -16,6 +16,7 @@ import MeetingNotes from "./pages/MeetingNotes"
 //providers
 import { UserProvider } from "./contexts/UserContext"
 import { ChakraProvider } from "@chakra-ui/react"
+import Footer from "./components/Footer"
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
                 element={<CoacheeProfile />}
               />
             </Routes>
+            {/* <Footer /> */}
           </div>
         </ChakraProvider>
       </UserProvider>

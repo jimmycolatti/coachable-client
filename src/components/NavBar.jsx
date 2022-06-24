@@ -86,6 +86,16 @@ const NavBar = () => {
           {user ? (
             <Flex alignItems={"center"}>
               <Menu>
+                <Text
+                  variant={"solid"}
+                  as="i"
+                  color={"gray"}
+                  size={"sm"}
+                  mr={"4"}
+                >
+                  Hi, {user.firstName}!
+                </Text>
+
                 <MenuButton
                   as={Button}
                   rounded={"full"}
@@ -93,7 +103,12 @@ const NavBar = () => {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar size={"md"} src={user.imgURL} />
+                  <Avatar
+                    size={"md"}
+                    src={user.imgURL}
+                    referrerPolicy={"no-referrer"}
+                  />
+                  {/* <img src={user.imgURL} alt="" /> */}
                 </MenuButton>
                 <MenuList>
                   <MenuItem onClick={logoutHandler}>Logout</MenuItem>

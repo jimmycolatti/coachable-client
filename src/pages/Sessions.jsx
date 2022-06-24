@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useCallback } from "react"
-import { useParams, useNavigate, Link } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import SessionForm from "../components/SessionForm"
@@ -14,7 +14,6 @@ const Sessions = () => {
   const [team, setTeam] = useState([])
   const [sessions, setSessions] = useState([])
   const [addToggler, setAddToggler] = useState(false)
-  const navigateTo = useNavigate()
 
   const defaultSessionFormData = {
     date: new Date(),

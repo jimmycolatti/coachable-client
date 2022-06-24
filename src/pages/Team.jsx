@@ -1,17 +1,41 @@
-import { useContext, useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useContext, useEffect, useState, useCallback } from "react"
+import { useParams } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
-
-//components
-import CoacheeForm from "../components/CoacheeForm"
+import React from "react"
 
 //contexts
 import UserContext from "../contexts/UserContext"
+import CoacheeCard from "../components/CoacheeCard"
+
+//chakra
+import {
+  SimpleGrid,
+  Button,
+  useDisclosure,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react"
+
+//modal create coachee
+
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+} from "@chakra-ui/react"
 
 const Team = () => {
   const { user } = useContext(UserContext)
   const [team, setTeam] = useState([])
-  const [addToggler, setAddToggler] = useState(false)
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const initialRef = React.useRef(null)
+  const finalRef = React.useRef(null)
 
   const defaultCoacheeFormData = {
     firstName: "",
@@ -25,11 +49,11 @@ const Team = () => {
   const { userID } = useParams()
 
   // get coachees from the database
-  const getCoachees = async () => {
+  const getCoachees = useCallback(async () => {
     const { data } = await authAxios.get(`http://localhost:5005/team/${userID}`)
     // console.log(data)
     setTeam(() => data)
-  }
+  }, [userID])
 
   //add a new coachee to the database
   const addCoachee = async () => {
@@ -37,8 +61,6 @@ const Team = () => {
       `http://localhost:5005/team/${userID}`,
       coacheeFormData
     )
-
-    addHandler()
     setTeam(() => [...team, data])
   }
 
@@ -51,13 +73,10 @@ const Team = () => {
     try {
       addCoachee()
       setCoacheeFormData(() => defaultCoacheeFormData)
+      onClose()
     } catch (error) {
       console.error(error)
     }
-  }
-
-  const addHandler = (e) => {
-    setAddToggler(() => !addToggler)
   }
 
   useEffect(() => {
@@ -70,25 +89,90 @@ const Team = () => {
 
   return (
     <div>
-      <h1>My Team</h1>
-
-      {user && !addToggler && (
+      {user && (
         <div>
-          {team.map((coachee) => {
-            return (
-              <div key={coachee._id}>
-                <p>
-                  <Link to={`coachee/${coachee._id}`}>
-                    {coachee.firstName} {coachee.lastName}
-                  </Link>
-                </p>
-              </div>
-            )
-          })}
+          <Button
+            px={8}
+            bg={"purple.600"}
+            color={"white"}
+            _hover={{ bg: "purple.700" }}
+            margin={"10px"}
+            marginTop={"25px"}
+            onClick={onOpen}
+          >
+            Add a Coachee
+          </Button>
+
           <br />
-          <button onClick={addHandler}>Add a Coachee</button>
+          <>
+            <SimpleGrid columns={3} spacing={"10px"}>
+              {team.map((coachee) => {
+                return (
+                  <div key={coachee._id}>
+                    <CoacheeCard coachee={coachee} />
+                  </div>
+                )
+              })}
+            </SimpleGrid>
+          </>
         </div>
       )}
+
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <form onSubmit={submitHandler}>
+          <ModalContent>
+            <ModalHeader>Create a new coachee</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={6}>
+              <FormControl pt={6}>
+                <FormLabel>First Name: </FormLabel>
+                <Input
+                  type="text"
+                  name="firstName"
+                  value={coacheeFormData.firstName}
+                  onChange={changeHandler}
+                />
+                <br />
+              </FormControl>
+              <FormControl pt={6}>
+                <FormLabel>Last Name: </FormLabel>
+                <Input
+                  type="text"
+                  name="lastName"
+                  value={coacheeFormData.lastName}
+                  onChange={changeHandler}
+                />
+                <br />
+              </FormControl>
+              <FormControl pt={6}>
+                <FormLabel>Email: </FormLabel>
+                <Input
+                  type="text"
+                  name="email"
+                  value={coacheeFormData.email}
+                  onChange={changeHandler}
+                />
+                <br />
+              </FormControl>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button type="submit" colorScheme={"purple"} mr={3}>
+                Submit
+              </Button>
+              <Button onClick={onClose}>Cancel</Button>
+            </ModalFooter>
+          </ModalContent>
+        </form>
+      </Modal>
+
+      {/*       
 
       {addToggler && (
         <div>
@@ -99,7 +183,7 @@ const Team = () => {
           />
           <button onClick={addHandler}>Cancel</button>
         </div>
-      )}
+      )} */}
     </div>
   )
 }

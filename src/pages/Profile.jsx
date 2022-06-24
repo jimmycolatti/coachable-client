@@ -186,11 +186,11 @@ const Profile = () => {
                 })
               }}
               type="submit"
-              bg={"blue.400"}
+              bg={"purple.600"}
               color={"white"}
               w="full"
               _hover={{
-                bg: "blue.500",
+                bg: "purple.700",
               }}
             >
               Submit
