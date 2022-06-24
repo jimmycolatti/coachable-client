@@ -36,6 +36,7 @@ import {
   Input,
   ModalFooter,
   useToast,
+  Checkbox,
 } from "@chakra-ui/react"
 
 const CoacheeProfile = () => {
@@ -43,6 +44,10 @@ const CoacheeProfile = () => {
     firstName: "",
     lastName: "",
     email: "",
+    disciplinary: {
+      pep: false,
+      cap: false,
+    },
   }
 
   const [coacheeFormData, setCoacheeFormData] = useState(defaultCoacheeFormData)
@@ -104,6 +109,16 @@ const CoacheeProfile = () => {
 
   const changeHandler = (e) => {
     setCoacheeFormData({ ...coacheeFormData, [e.target.name]: e.target.value })
+  }
+
+  const checkHandler = (e) => {
+    setCoacheeFormData({
+      ...coacheeFormData,
+      disciplinary: {
+        ...coacheeFormData.disciplinary,
+        [e.target.name]: e.target.checked,
+      },
+    })
   }
 
   const submitHandler = (e) => {
@@ -248,6 +263,25 @@ const CoacheeProfile = () => {
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl pt={6}>
+                <Stack direction="row">
+                  <Checkbox
+                    name="pep"
+                    isChecked={coacheeFormData.disciplinary.pep}
+                    value={coacheeFormData.disciplinary.pep}
+                    onChange={checkHandler}
+                  >
+                    PEP
+                  </Checkbox>
+                  <Checkbox
+                    name="cap"
+                    isChecked={coacheeFormData.disciplinary.cap}
+                    value={coacheeFormData.disciplinary.cap}
+                    onChange={checkHandler}
+                  >
+                    CAP
+                  </Checkbox>
+                </Stack>
+                <br />
                 <FormLabel>First Name: </FormLabel>
                 <Input
                   type="text"
