@@ -31,7 +31,7 @@ const MeetingNotes = () => {
       `${baseApiUrl()}/sessions/${userID}/meeting/${sessionID}`,
       meetingNotes
     )
-    console.log(data)
+    // console.log(data)
     setMeetingNotes(() => data)
     setEditToggler(() => !editToggler)
   }

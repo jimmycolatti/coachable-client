@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 import { baseApiUrl } from "../config"
@@ -23,13 +23,13 @@ const CoacheeProfile = () => {
   }
 
   //getting coachee details from database using coacheeID
-  const getCoacheeDetails = async () => {
+  const getCoacheeDetails = useCallback(async () => {
     const { data } = await authAxios.get(
       `${baseApiUrl()}/team/${userID}/coachee/${coacheeID}`
     )
     setCoachee(() => data)
     setCoacheeFormData(() => data)
-  }
+  }, [userID, coacheeID])
 
   //update coachee details in the database
   const updateCoacheeDetails = async () => {
@@ -55,7 +55,7 @@ const CoacheeProfile = () => {
     } catch (error) {
       console.error(error)
     }
-  })
+  }, [getCoacheeDetails])
 
   const changeHandler = (e) => {
     setCoacheeFormData({ ...coacheeFormData, [e.target.name]: e.target.value })
