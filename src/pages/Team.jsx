@@ -2,6 +2,7 @@ import { useContext, useEffect, useState, useCallback } from "react"
 import { useParams } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 import React from "react"
+import { baseApiUrl } from "../config"
 
 //contexts
 import UserContext from "../contexts/UserContext"
@@ -56,7 +57,7 @@ const Team = () => {
 
   // get coachees from the database
   const getCoachees = useCallback(async () => {
-    const { data } = await authAxios.get(`http://localhost:5005/team/${userID}`)
+    const { data } = await authAxios.get(`${baseApiUrl()}/team/${userID}`)
     // console.log(data)
     setIsLoadingCoachee(false)
     setTeam(() => data)
@@ -65,7 +66,7 @@ const Team = () => {
   //add a new coachee to the database
   const addCoachee = async () => {
     const { data } = await authAxios.post(
-      `http://localhost:5005/team/${userID}`,
+      `${baseApiUrl()}/team/${userID}`,
       coacheeFormData
     )
     setTeam(() => [...team, data])

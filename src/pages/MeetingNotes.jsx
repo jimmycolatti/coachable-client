@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
+import { baseApiUrl } from "../config"
 
 //components
 import MeetingNotesForm from "../components/MeetingNotesForm"
@@ -19,7 +20,7 @@ const MeetingNotes = () => {
   //getting session details from database using sessionID
   const getMeetingNotes = useCallback(async () => {
     const { data } = await authAxios.get(`
-      http://localhost:5005/sessions/${userID}/meeting/${sessionID}
+      ${baseApiUrl()}/sessions/${userID}/meeting/${sessionID}
       `)
     setMeetingNotes(data)
   }, [userID, sessionID])
@@ -27,7 +28,7 @@ const MeetingNotes = () => {
   //update coachee details in the database
   const updateMeetingNotes = async () => {
     const { data } = await authAxios.post(
-      `http://localhost:5005/sessions/${userID}/meeting/${sessionID}`,
+      `${baseApiUrl()}/sessions/${userID}/meeting/${sessionID}`,
       meetingNotes
     )
     console.log(data)
@@ -38,7 +39,7 @@ const MeetingNotes = () => {
   //delete session from the database
   const deleteSession = async () => {
     await authAxios.delete(
-      `http://localhost:5005/sessions/${userID}/meeting/${sessionID}`
+      `${baseApiUrl()}/sessions/${userID}/meeting/${sessionID}`
     )
     navigateTo(`/sessions/${userID}`)
   }

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react"
 import { getRedirectResult } from "firebase/auth"
 import { auth } from "../config/Fire"
+import { baseApiUrl } from "../config"
 import { authAxios } from "../customAxios/authAxios"
 
 const UserContext = createContext()
@@ -21,7 +22,7 @@ export const UserProvider = ({ children }) => {
       const { user } = (await getRedirectResult(auth)) ?? {}
       if (user) {
         const { data: authUser } = await authAxios.post(
-          `http://localhost:5005/google`,
+          `${baseApiUrl()}/google`,
           user
         )
         setUser(authUser)

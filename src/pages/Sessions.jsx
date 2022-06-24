@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import SessionForm from "../components/SessionForm"
+import { baseApiUrl } from "../config"
 
 //components
 
@@ -30,9 +31,7 @@ const Sessions = () => {
 
   // get sessions and coachees from the database
   const getSessions = useCallback(async () => {
-    const { data } = await authAxios.get(
-      `http://localhost:5005/sessions/${userID}`
-    )
+    const { data } = await authAxios.get(`${baseApiUrl()}/sessions/${userID}`)
     setSessions(() => data.sessions)
     setTeam(() => data.team)
   }, [userID])
@@ -40,7 +39,7 @@ const Sessions = () => {
   //add a new session to the database
   const addSession = async () => {
     const { data } = await authAxios.post(
-      `http://localhost:5005/sessions/${userID}`,
+      `${baseApiUrl()}/sessions/${userID}`,
       sessionFormData
     )
     const sortedSessions = [...sessions, data].sort((a, b) => {

@@ -1,5 +1,6 @@
 import { useState, useContext } from "react"
 import axios from "axios"
+import { baseApiUrl } from "../config"
 
 //context
 import UserContext from "../contexts/UserContext"
@@ -31,7 +32,7 @@ const Login = () => {
   const submitFormData = async () => {
     try {
       const { data } = await axios.post(
-        `http://localhost:5005/${loginState}`,
+        `${baseApiUrl()}/${loginState}`,
         formData
       )
       setUser(() => data)

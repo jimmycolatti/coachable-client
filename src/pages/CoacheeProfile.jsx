@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
+import { baseApiUrl } from "../config"
 //components
 import CoacheeForm from "../components/CoacheeForm"
 
@@ -24,7 +25,7 @@ const CoacheeProfile = () => {
   //getting coachee details from database using coacheeID
   const getCoacheeDetails = async () => {
     const { data } = await authAxios.get(
-      `http://localhost:5005/team/${userID}/coachee/${coacheeID}`
+      `${baseApiUrl()}/team/${userID}/coachee/${coacheeID}`
     )
     setCoachee(() => data)
     setCoacheeFormData(() => data)
@@ -33,7 +34,7 @@ const CoacheeProfile = () => {
   //update coachee details in the database
   const updateCoacheeDetails = async () => {
     const { data } = await authAxios.post(
-      `http://localhost:5005/team/${userID}/coachee/${coacheeID}`,
+      `${baseApiUrl()}/team/${userID}/coachee/${coacheeID}`,
       coacheeFormData
     )
     setCoachee(() => data)
@@ -43,7 +44,7 @@ const CoacheeProfile = () => {
   //delete coachee from the database
   const deleteCoachee = async () => {
     await authAxios.delete(
-      `http://localhost:5005/team/${userID}/coachee/${coacheeID}`
+      `${baseApiUrl()}/team/${userID}/coachee/${coacheeID}`
     )
     navigateTo(`/team/${userID}`)
   }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { authAxios } from "../customAxios/authAxios"
+import { baseApiUrl } from "../config"
 
 //contexts
 import UserContext from "../contexts/UserContext"
@@ -37,16 +38,14 @@ const Profile = () => {
 
   // get profile information from the database
   const getUserInfo = async () => {
-    const { data } = await authAxios.get(
-      `http://localhost:5005/profile/${userID}`
-    )
+    const { data } = await authAxios.get(`${baseApiUrl()}/profile/${userID}`)
     setUserFormData(() => data)
   }
 
   //update user information in the database
   const updateUserInfo = async () => {
     const { data } = await authAxios.post(
-      `http://localhost:5005/profile/${userID}`,
+      `${baseApiUrl()}/profile/${userID}`,
       userFormData
     )
     // console.log(data)
