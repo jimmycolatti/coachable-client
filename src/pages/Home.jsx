@@ -3,7 +3,6 @@
 // import UserContext from "../contexts/UserContext"
 
 // chakra cta with annotation
-import Head from "next/head"
 import { Box, Heading, Container, Text, Stack, Image } from "@chakra-ui/react"
 
 const Home = () => {
@@ -14,13 +13,6 @@ const Home = () => {
 
   return (
     <>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
       <Container maxW={"3xl"} marginTop={"-50px"}>
         <Stack
           as={Box}
