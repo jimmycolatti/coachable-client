@@ -107,7 +107,11 @@ const Profile = () => {
             {/* <FormLabel>Profile Picture</FormLabel> */}
             <Stack direction={["column", "row"]} spacing={6}>
               <Center w="full">
-                <Avatar size="xl" src={userFormData.imgURL}>
+                <Avatar
+                  size="xl"
+                  src={userFormData.imgURL}
+                  referrerPolicy={"no-referrer"}
+                >
                   {/* <AvatarBadge
                     as={IconButton}
                     size="sm"

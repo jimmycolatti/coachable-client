@@ -130,7 +130,11 @@ const Team = () => {
           </Button>
         </div>
       )}
+
       <br />
+
+      {/* below is the list of coachees from the team array */}
+
       {user && team.length > 0 ? (
         <>
           <SimpleGrid columns={3} spacing={"10px"}>
@@ -153,6 +157,8 @@ const Team = () => {
           </Center>
         )
       )}
+
+      {/* when 'see details' is clicked the below modal pops up */}
 
       <Modal
         initialFocusRef={initialRef}
@@ -207,19 +213,6 @@ const Team = () => {
           </ModalContent>
         </form>
       </Modal>
-
-      {/*       
-
-      {addToggler && (
-        <div>
-          <CoacheeForm
-            coacheeFormData={coacheeFormData}
-            submitHandler={submitHandler}
-            changeHandler={changeHandler}
-          />
-          <button onClick={addHandler}>Cancel</button>
-        </div>
-      )} */}
     </div>
   )
 }
